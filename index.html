@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>平安夜年度聚會 - 搞亂ChiuChiu屋企</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper-bg: #fdfbf7;
+            --xmas-red: #d45d5d;
+            --xmas-green: #5c8d76;
+            --text-color: #4a4a4a;
+            --accent-gold: #d4af37;
+        }
+        
+        body {
+            font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 模擬 9:16 手機比例的卡片容器 */
+        .card-container {
+            width: 100%;
+            max-width: 450px; /* 約手機寬度 */
+            aspect-ratio: 9/16;
+            background-color: var(--paper-bg);
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color);
+            background-image: 
+                radial-gradient(#e8e8e8 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* 裝飾性背景元素 - 日式簡約幾何 */
+        .decor-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+        .circle-1 { top: -50px; left: -50px; width: 200px; height: 200px; background: var(--xmas-red); }
+        .circle-2 { bottom: -20px; right: -20px; width: 150px; height: 150px; background: var(--xmas-green); }
+        .circle-3 { top: 20%; right: -30px; width: 80px; height: 80px; background: #f4e4bc; }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 24px;
+            height: 100%;
+            overflow-y: auto;
+            /* 隱藏捲軸但保持滾動 */
+            scrollbar-width: none; 
+        }
+        .content::-webkit-scrollbar { display: none; }
+
+        .title-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--text-color);
+            padding: 15px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 4px 4px 0px var(--xmas-green);
+            transform: rotate(-1deg);
+        }
+
+        .section-title {
+            display: inline-block;
+            background: var(--xmas-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .info-grid {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px dashed var(--xmas-green);
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85rem;
+        }
+        .menu-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        .menu-list li:last-child { border-bottom: none; }
+        
+        .activity-box {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .sticker {
+            position: absolute;
+            z-index: 20;
+            filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.1));
+        }
+        
+        /* 飄落的雪花動畫 */
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 1em;
+            font-family: Arial;
+            text-shadow: 0 0 1px #000;
+            top: -10%;
+            z-index: 5;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(110vh) translateX(20px); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card-container" id="capture-area">
+        <!-- 背景裝飾 -->
+        <div class="decor-circle circle-1"></div>
+        <div class="decor-circle circle-2"></div>
+        <div class="decor-circle circle-3"></div>
+        
+        <!-- 飄落雪花 (CSS 生成) -->
+        <div class="snowflake" style="left: 10%; animation-duration: 10s; animation-delay: 0s;">❄</div>
+        <div class="snowflake" style="left: 30%; animation-duration: 12s; animation-delay: 2s;">❄</div>
+        <div class="snowflake" style="left: 70%; animation-duration: 8s; animation-delay: 4s;">❄</div>
+        <div class="snowflake" style="left: 90%; animation-duration: 15s; animation-delay: 1s;">❄</div>
+
+        <!-- 貼紙裝飾 -->
+        <div class="sticker" style="top: 10px; right: 10px; font-size: 2rem; transform: rotate(15deg);">🎄</div>
+        <div class="sticker" style="bottom: 100px; left: -5px; font-size: 3rem; transform: rotate(-10deg);">🎁</div>
+        <div class="sticker" style="top: 380px; right: 0px; font-size: 2.5rem; transform: rotate(20deg);">🍗</div>
+
+        <div class="content">
+            <!-- 標題 -->
+            <div class="title-box">
+                <div class="text-xs text-gray-500 tracking-widest mb-1">CHRISTMAS EVE GATHERING</div>
+                <h1 class="text-2xl font-bold text-gray-800 leading-tight">平安夜年度聚會<br><span style="font-size: 0.8em; color: var(--xmas-red);">之 搞亂ChiuChiu屋企</span></h1>
+            </div>
+
+            <!-- 時間地點 -->
+            <div class="info-grid text-center">
+                <div class="flex justify-around items-center mb-2">
+                    <div>
+                        <div class="text-xs text-gray-500">DATE</div>
+                        <div class="font-bold text-lg text-gray-700">2025.12.24</div>
+                    </div>
+                    <div class="h-8 w-px bg-gray-300"></div>
+                    <div>
+                        <div class="text-xs text-gray-500">TIME</div>
+                        <div class="font-bold text-sm text-gray-700">放工就可上去</div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 rounded-lg py-1 px-3 inline-block border border-yellow-200">
+                    <i class="fas fa-home text-orange-400 mr-1"></i> 
+                    <span class="font-bold text-gray-700">ChiuChiu 屋企</span>
+                </div>
+            </div>
+
+            <!-- 餐飲分工 -->
+            <div class="mb-4 relative">
+                <div class="section-title"><i class="fas fa-utensils mr-1"></i> 餐飲大隊</div>
+                <div class="bg-white/90 rounded-xl p-3 shadow-sm border border-gray-100">
+                    <ul class="menu-list">
+                        <li><span>🥩 肉類購買權(牛)</span> <span class="font-bold text-red-500">k</span></li>
+                        <li><span>🍢 小食購買權(1)</span> <span class="font-bold text-orange-500">IVY</span></li>
+                        <li><span>🍘 小食購買權(2)</span> <span class="font-bold text-orange-500">明明</span></li>
+                        <li><span>🍪 小食購買權(3)</span> <span class="font-bold text-orange-500">yuki</span></li>
+                        <li><span>🍝 主食購買權(1)</span> <span class="font-bold text-blue-500">12</span></li>
+                        <li><span>🍕 主食購買權(2)</span> <span class="font-bold text-blue-500">女王</span></li>
+                        <li><span>🥗 蔬菜沙律購買權</span> <span class="font-bold text-green-500">chiu</span></li>
+                        <li><span>🥓 肉類(豬)購買權</span> <span class="font-bold text-gray-400">?</span></li>
+                        <li><span>🍗 肉類(雞)購買權</span> <span class="font-bold text-red-500">羊</span></li>
+                        <li><span>🍬 零食購買權</span> <span class="font-bold text-pink-500">盛</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 活動內容 -->
+            <div class="mb-10">
+                <div class="section-title bg-[#5c8d76]"><i class="fas fa-star mr-1"></i> Party Time!</div>
+                <div class="activity-box space-y-3">
+                    <div class="flex items-start">
+                        <span class="bg-red-100 text-red-500 rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5 shrink-0">1</span>
+                        <div class="text-sm">
+                            <span class="font-bold block text-gray-700">討論 2026 生日慶祝模式</span>
+                            <span class="text-xs text-gray-500">定個 Theme (例: 異國風，食/著/睇都係異國風)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <span class="bg-green-100 text-green-600 rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5 shrink-0">2</span>
+                        <div class="text-sm">
+                            <span class="font-bold block text-gray-700">交換禮物 🎁</span>
+                            <span class="text-xs text-gray-500">$100預算，買10份一樣的禮物 (可自行top up)，詳見Chiu IG reels</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <span class="bg-blue-100 text-blue-500 rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5 shrink-0">3</span>
+                        <div class="text-sm">
+                            <span class="font-bold block text-gray-700">許願時光 ✨</span>
+                            <span class="text-xs text-gray-500">每人許一個願，未來1年/10年一齊完成</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center text-sm text-gray-700 mt-2 pt-2 border-t border-gray-100">
+                        <i class="fas fa-dice text-purple-400 mr-2"></i> 桌遊大戰 & 🗣️ 傾偈傾通宵
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-xs text-gray-400 pb-4">
+                Merry Christmas! See you there!
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
