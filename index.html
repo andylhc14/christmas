@@ -14,6 +14,7 @@
             --xmas-green: #5c8d76;
             --text-color: #4a4a4a;
             --accent-gold: #d4af37;
+            --bus-blue: #1a3c5e;
         }
         
         body {
@@ -22,16 +23,14 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            /* 讓背景在桌面上看起來比較暗，突出卡片 */
             background-image: radial-gradient(#ccc 1px, #e0e0e0 1px);
             background-size: 20px 20px;
         }
 
-        /* 主要容器調整為自適應 */
         .card-container {
             width: 100%;
-            max-width: 600px; /* 在大螢幕上限制最大寬度，避免太寬 */
-            min-height: 100vh; /* 手機上至少填滿一螢幕 */
+            max-width: 600px;
+            min-height: 100vh;
             margin: 0 auto;
             background-color: var(--paper-bg);
             position: relative;
@@ -39,7 +38,7 @@
             display: flex;
             flex-direction: column;
             color: var(--text-color);
-            overflow-x: hidden; /* 防止貼紙超出寬度 */
+            overflow-x: hidden;
         }
 
         /* 裝飾性背景元素 */
@@ -48,7 +47,7 @@
             border-radius: 50%;
             z-index: 0;
             opacity: 0.6;
-            pointer-events: none; /* 避免擋住點擊 */
+            pointer-events: none;
         }
         .circle-1 { top: -50px; left: -50px; width: 250px; height: 250px; background: var(--xmas-red); }
         .circle-2 { bottom: 5%; right: -50px; width: 200px; height: 200px; background: var(--xmas-green); }
@@ -57,7 +56,7 @@
         .content {
             position: relative;
             z-index: 10;
-            padding: 24px 20px 40px 20px; /* 底部增加留白 */
+            padding: 24px 20px 60px 20px;
         }
 
         .title-box {
@@ -87,6 +86,11 @@
 
         .section-title.secondary {
             background: var(--accent-gold);
+            color: #fff;
+        }
+        
+        .section-title.transport {
+            background: var(--bus-blue);
             color: #fff;
         }
 
@@ -126,6 +130,52 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
+        /* 巴士按鈕樣式 */
+        .bus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        
+        .bus-btn {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 8px 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .bus-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: var(--bus-blue);
+        }
+        .bus-num {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--bus-blue);
+            margin-right: 8px;
+            min-width: 45px;
+        }
+        .bus-dest {
+            font-size: 0.75rem;
+            color: #666;
+            line-height: 1.2;
+        }
+        .bus-tag {
+            font-size: 0.6rem;
+            padding: 1px 4px;
+            border-radius: 4px;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        .tag-night { background: #2c3e50; color: #fff; }
+        .tag-day { background: #e3f2fd; color: #1565c0; }
+
         .sticker {
             position: absolute;
             z-index: 20;
@@ -133,9 +183,8 @@
             pointer-events: none;
         }
         
-        /* 飄落的雪花動畫 */
         .snowflake {
-            position: fixed; /* 改為 fixed 讓雪花跟著視窗 */
+            position: fixed;
             color: white;
             font-size: 1.2em;
             text-shadow: 0 0 2px rgba(0,0,0,0.2);
@@ -147,6 +196,16 @@
         @keyframes fall {
             0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0.8; }
             100% { transform: translateY(110vh) translateX(20px) rotate(360deg); opacity: 0; }
+        }
+
+        .transport-note {
+            font-size: 0.8rem;
+            color: #666;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid var(--bus-blue);
         }
 
     </style>
@@ -168,7 +227,7 @@
 
         <!-- 貼紙裝飾 -->
         <div class="sticker" style="top: 20px; right: 20px; font-size: 2.5rem; transform: rotate(15deg);">🎄</div>
-        <div class="sticker" style="bottom: 50px; left: 10px; font-size: 3.5rem; transform: rotate(-10deg);">🎁</div>
+        <div class="sticker" style="bottom: 120px; left: 10px; font-size: 3.5rem; transform: rotate(-10deg);">🎁</div>
         <div class="sticker" style="top: 550px; right: -10px; font-size: 3rem; transform: rotate(20deg);">🥂</div>
 
         <div class="content">
@@ -203,7 +262,7 @@
                 </div>
             </div>
 
-            <!-- 需要物品 (新增區塊) -->
+            <!-- 需要物品 -->
             <div class="mb-6 relative">
                 <div class="section-title secondary"><i class="fas fa-box-open mr-2"></i>需要物品</div>
                 <div class="bg-white/95 rounded-xl p-4 shadow-sm border border-gray-100">
@@ -299,6 +358,102 @@
                         <i class="fas fa-dice text-purple-400 mr-3 text-xl"></i> 
                         <div>桌遊大戰 & 傾偈傾通宵</div>
                     </div>
+                </div>
+            </div>
+
+            <!-- 離場交通 (新增區塊) -->
+            <div class="mb-8">
+                <div class="section-title transport"><i class="fas fa-bus mr-2"></i>離場交通 (小秀上村)</div>
+                <div class="text-xs text-gray-500 mb-2 ml-1">點擊路線號碼可查看詳情</div>
+                
+                <!-- 通宵 -->
+                <h3 class="text-sm font-bold text-gray-700 mb-2 mt-1 px-1">🌙 通宵 / 凌晨</h3>
+                <div class="bus-grid mb-3">
+                    <a href="https://mobile.citybus.com.hk/nwp3/?f=1&ds=ETA&l=1" target="_blank" class="bus-btn">
+                        <span class="bus-num">N962</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 銅鑼灣</span>
+                            <span class="text-[0.6rem] text-gray-400">經金鐘/中環</span>
+                        </div>
+                        <span class="bus-tag tag-night">通宵</span>
+                    </a>
+                    <a href="https://search.kmb.hk/KMBWebSite/?action=routesearch&route=NA33" target="_blank" class="bus-btn">
+                        <span class="bus-num">NA33</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 機場/國泰</span>
+                            <span class="text-[0.6rem] text-gray-400">03:45起</span>
+                        </div>
+                        <span class="bus-tag tag-night">通宵</span>
+                    </a>
+                </div>
+
+                <!-- 九龍 -->
+                <h3 class="text-sm font-bold text-gray-700 mb-2 mt-1 px-1">🏙️ 往 九龍 / 市區</h3>
+                <div class="bus-grid mb-3">
+                    <a href="https://search.kmb.hk/KMBWebSite/?action=routesearch&route=52X" target="_blank" class="bus-btn">
+                        <span class="bus-num">52X</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 旺角</span>
+                            <span class="text-[0.6rem] text-gray-400">柏景灣</span>
+                        </div>
+                    </a>
+                    <a href="https://search.kmb.hk/KMBWebSite/?action=routesearch&route=61M" target="_blank" class="bus-btn">
+                        <span class="bus-num">61M</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 荔景</span>
+                            <span class="text-[0.6rem] text-gray-400">經荃灣/葵芳</span>
+                        </div>
+                    </a>
+                    <a href="https://search.kmb.hk/KMBWebSite/?action=routesearch&route=252" target="_blank" class="bus-btn">
+                        <span class="bus-num">252</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 轉車站</span>
+                            <span class="text-[0.6rem] text-gray-400">接駁其他</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 屯門/元朗 -->
+                <h3 class="text-sm font-bold text-gray-700 mb-2 mt-1 px-1">🏡 往 屯門 / 元朗</h3>
+                <div class="bus-grid mb-3">
+                    <a href="https://www.mtr.com.hk/ch/customer/services/search_bus_route.php" target="_blank" class="bus-btn">
+                        <span class="bus-num">K51</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 富泰</span>
+                            <span class="text-[0.6rem] text-gray-400">經屯門市中心</span>
+                        </div>
+                    </a>
+                    <a href="https://search.kmb.hk/KMBWebSite/?action=routesearch&route=53" target="_blank" class="bus-btn">
+                        <span class="bus-num">53</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 元朗</span>
+                            <span class="text-[0.6rem] text-gray-400">經天水圍</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 港島 -->
+                <h3 class="text-sm font-bold text-gray-700 mb-2 mt-1 px-1">🌆 往 港島</h3>
+                <div class="bus-grid mb-2">
+                    <a href="https://mobile.citybus.com.hk/nwp3/?f=1&ds=ETA&l=1" target="_blank" class="bus-btn">
+                        <span class="bus-num">952</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 銅鑼灣</span>
+                            <span class="text-[0.6rem] text-gray-400">摩頓台</span>
+                        </div>
+                    </a>
+                    <a href="https://mobile.citybus.com.hk/nwp3/?f=1&ds=ETA&l=1" target="_blank" class="bus-btn">
+                        <span class="bus-num">962</span>
+                        <div class="flex flex-col">
+                            <span class="bus-dest">往 銅鑼灣</span>
+                            <span class="text-[0.6rem] text-gray-400">特別班次</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="transport-note">
+                    <i class="fas fa-info-circle mr-1"></i> <b>深夜提示：</b><br>
+                    除巴士外，青山公路沿線有 <b>紅色小巴</b> 通宵行駛（往旺角/佐敦/銅鑼灣），可於路邊截車。
                 </div>
             </div>
             
